@@ -1,30 +1,18 @@
-drop database restaurant;
-create database if not exists restaurant;
+drop database if exists restaurant;
+create database restaurant;
 use restaurant;
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE IF NOT EXISTS `user` (
     id SERIAL PRIMARY KEY,
     `name` CHAR(40),
     `login` CHAR(40),
     `passwordHash` CHAR(64)
-);
-CREATE TABLE IF NOT EXISTS `cook` (
-    id SERIAL,
-    userID BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (userID) REFERENCES users (id) ON UPDATE CASCADE
-);
+) comment = "Basic user entity";
 CREATE TABLE IF NOT EXISTS `waiter` (
     `id` SERIAL,
     `userID` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-);
-CREATE TABLE IF NOT EXISTS `admin` (
-    `id` SERIAL,
-    `userID` BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-);
+    FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+)comment = "Users that can add orders";
 CREATE TABLE IF NOT EXISTS `orders` (
     `id` SERIAL,
     `waiterID` BIGINT UNSIGNED NOT NULL,
