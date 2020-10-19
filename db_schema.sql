@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 );
 CREATE TABLE IF NOT EXISTS dish (
     `id` SERIAL PRIMARY KEY,
-    `dishName` BIGINT,
+    `dishName` CHAR(50),
     `dishCost` INT,
     `dishAvailibility` TINYINT
 );
