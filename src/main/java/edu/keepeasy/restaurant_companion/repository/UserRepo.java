@@ -5,7 +5,7 @@ import edu.keepeasy.restaurant_companion.domain.User;
 public class UserRepo implements Repository<User> {
 
     @Override
-    public void create(User entity) {
+    public void save(User entity) {
 
     }
 

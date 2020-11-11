@@ -4,7 +4,7 @@ import edu.keepeasy.restaurant_companion.domain.Meal;
 
 public class MealRepo implements Repository<Meal> {
     @Override
-    public void create(Meal entity) {
+    public void save(Meal entity) {
 
     }
 
