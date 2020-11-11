@@ -21,19 +21,19 @@ CREATE TABLE IF NOT EXISTS `orders` (
     PRIMARY KEY (`id`),
     FOREIGN KEY (`waiterID`) REFERENCES `waiter` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS dish (
+CREATE TABLE IF NOT EXISTS meal (
     `id` SERIAL PRIMARY KEY,
-    `dishName` CHAR(50),
-    `dishCost` INT,
-    `dishAvailibility` TINYINT
+    `mealName` CHAR(50),
+    `mealCost` INT,
+    `mealAvailibility` TINYINT
 );
 CREATE TABLE IF NOT EXISTS `orderItems` (
     `id` SERIAL,
-    `dishID` BIGINT UNSIGNED NOT NULL,
+    `mealID` BIGINT UNSIGNED NOT NULL,
     `orderID` BIGINT UNSIGNED NOT NULL,
     `quantity` TINYINT,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`dishID`) REFERENCES `dish` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (`mealID`) REFERENCES `meal` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (`orderID`) REFERENCES `orders` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 -- show tables from restaurant;
