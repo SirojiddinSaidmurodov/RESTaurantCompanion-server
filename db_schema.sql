@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
     `id` SERIAL,
     `waiterID` BIGINT UNSIGNED NOT NULL,
     `tableID` INT,
-    `orderStatus` TINYINT,
+    `orderStatus` BOOLEAN,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`waiterID`) REFERENCES `waiter` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS meal (
     `id` SERIAL PRIMARY KEY,
     `mealName` CHAR(50),
     `mealCost` INT,
-    `mealAvailable` TINYINT
+    `mealAvailable` BOOLEAN
 );
 CREATE TABLE IF NOT EXISTS `orderItems` (
     `id` SERIAL,
