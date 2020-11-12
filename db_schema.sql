@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS meal (
     `id` SERIAL PRIMARY KEY,
     `mealName` CHAR(50),
     `mealCost` INT,
-    `mealAvailibility` TINYINT
+    `mealAvailable` TINYINT
 );
 CREATE TABLE IF NOT EXISTS `orderItems` (
     `id` SERIAL,
