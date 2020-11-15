@@ -1,7 +1,6 @@
 package edu.keepeasy.restaurant_companion.repository;
 
 import edu.keepeasy.restaurant_companion.domain.User;
-import edu.keepeasy.restaurant_companion.domain.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -91,7 +90,7 @@ public class UserRepo implements Repository<User> {
                     rowSet.getString("name"),
                     rowSet.getString("login"),
                     rowSet.getString("password"),
-                    UserType.fromInteger(rowSet.getInt("userType")));
+                    User.UserType.fromInteger(rowSet.getInt("userType")));
         } else {
             return null;
         }
