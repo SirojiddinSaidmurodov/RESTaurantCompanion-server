@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `orders`
     `id`          SERIAL,
     `waiterID`    BIGINT UNSIGNED NOT NULL,
     `tableID`     INT,
-    `orderStatus` BOOLEAN,
+    `ready` BOOLEAN,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`waiterID`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
