@@ -19,7 +19,7 @@ public class OrderItemRepo implements Repository<Meal> {
     }
 
     @Override
-    public void update(Meal entity) {
+    public void update(long id, Meal entity) {
 
     }
 

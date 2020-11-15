@@ -20,7 +20,7 @@ public class UserRepo implements Repository<User> {
     }
 
     @Override
-    public void update(User entity) {
+    public void update(long id, User entity) {
 
     }
 
