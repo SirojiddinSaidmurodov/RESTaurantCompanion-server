@@ -4,22 +4,22 @@ public class Order extends Entity {
     private long waiterID;
     private int tableID;
     private boolean orderStatus;
-    private Meal[] meals;
+    private OrderItem[] orderItems;
 
-    public Order(long id, long waiterID, int tableID, boolean orderStatus, Meal[] meals) {
+    public Order(long id, long waiterID, int tableID, boolean orderStatus, OrderItem[] orderItems) {
         super(id);
         this.waiterID = waiterID;
         this.tableID = tableID;
         this.orderStatus = orderStatus;
-        this.meals = meals;
+        this.orderItems = orderItems;
     }
 
-    public Meal[] getMeals() {
-        return meals;
+    public OrderItem[] getMeals() {
+        return orderItems;
     }
 
-    public void setMeals(Meal[] meals) {
-        this.meals = meals;
+    public void setMeals(OrderItem[] orderItems) {
+        this.orderItems = orderItems;
     }
 
     public long getWaiterID() {
