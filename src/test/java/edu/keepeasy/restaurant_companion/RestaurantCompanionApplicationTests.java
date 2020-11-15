@@ -6,26 +6,34 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.springframework.test.util.AssertionErrors.assertEquals;
+
 @SpringBootTest
 class RestaurantCompanionApplicationTests {
     @Autowired
     MealRepo mealRepo;
+
     @Test
-    void mealAdding(){
+    void mealAdding() {
         Meal meal = new Meal(0, "Шашлык", 150, true);
-        mealRepo.create(meal);
-        System.out.println(meal.getId());
+        meal = mealRepo.create(meal);
+        assertEquals("mealID", 1, meal.id);
+        assertEquals("mealName", "Шашлык", meal.getMealName());
+        assertEquals("mealCost", 150, meal.getClass());
+        assertEquals("mealAvailable", true, meal.isMealAvailable());
     }
+
     @Test
-    void mealsReading(){
+    void mealsReading() {
         Meal[] meals = mealRepo.readAll();
         for (Meal meal :
                 meals) {
             System.out.println(meal.getMealCost());
         }
     }
+
     @Test
-    void mealReading(){
+    void mealReading() {
         Meal meal = mealRepo.read(1);
         System.out.println(meal.getMealName());
     }
