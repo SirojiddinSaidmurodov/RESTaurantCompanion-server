@@ -1,30 +1,28 @@
 package edu.keepeasy.restaurant_companion.repository;
 
-import edu.keepeasy.restaurant_companion.domain.Meal;
+import edu.keepeasy.restaurant_companion.domain.OrderItem;
+import org.springframework.stereotype.Repository;
 
-public class OrderItemRepo implements Repository<Meal> {
-    @Override
-    public Meal create(Meal entity) {
+@Repository
+public class OrderItemRepo {
+
+    public OrderItem create(OrderItem entity) {
         return null;
     }
 
-    @Override
-    public Meal[] readAll() {
-        return new Meal[0];
+    public OrderItem[] readAll() {
+        return new OrderItem[0];
     }
 
-    @Override
-    public Meal read(long id) {
+    public OrderItem read(long id) {
         return null;
     }
 
-    @Override
-    public Meal update(long id, Meal entity) {
+    public OrderItem update(long id, OrderItem entity) {
         return null;
     }
 
-    @Override
-    public Meal delete(Meal entity) {
+    public OrderItem delete(OrderItem entity) {
         return null;
     }
 }
