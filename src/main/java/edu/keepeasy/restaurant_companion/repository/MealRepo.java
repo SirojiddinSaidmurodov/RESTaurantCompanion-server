@@ -4,15 +4,12 @@ import edu.keepeasy.restaurant_companion.domain.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 @org.springframework.stereotype.Repository
 public class MealRepo implements Repository<Meal> {
@@ -27,15 +24,16 @@ public class MealRepo implements Repository<Meal> {
 
     @Override
     public void create(Meal entity) {
-        SimpleJdbcInsert insert = new SimpleJdbcInsert(template);
-        long id = insert
+        long id = Objects.requireNonNull(new SimpleJdbcInsert(template)
                 .withTableName("Meal")
                 .usingColumns("mealName", "mealCost", "mealAvailable")
                 .usingGeneratedKeyColumns("id")
                 .executeAndReturnKeyHolder(Map.of(
                         "mealName", entity.getMealName(),
                         "mealCost", entity.getMealCost(),
-                        "mealAvailable", entity.isMealAvailable())).getKey().longValue();
+                        "mealAvailable", entity.isMealAvailable()))
+                .getKey())
+                .longValue();
         entity.setId(id);
     }
 
