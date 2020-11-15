@@ -14,6 +14,7 @@ public class UserRepo implements Repository<User> {
     private static final String selectAllQuery = "SELECT id, name, login, passwordHash, userType FROM user";
     private static final String selectByID = "SELECT id, name, login, passwordHash, userType FROM user where id=?";
     private static final String deleteQuery = "DELETE FROM user where id=?";
+    private static final String updateQuery = "UPDATE user SET id=?,name=?,login=?,passwordHash=?,userType=? where id=?";
     @Autowired
     JdbcOperations jdbcOperations;
 
@@ -68,8 +69,8 @@ public class UserRepo implements Repository<User> {
                 Types.CHAR,
                 Types.CHAR,
                 Types.INTEGER,
-                Types.INTEGER};
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(selectByID, args, argTypes);
+                Types.BIGINT};
+        SqlRowSet rowSet = jdbcOperations.queryForRowSet(updateQuery, args, argTypes);
         return getResult(rowSet);
     }
 
