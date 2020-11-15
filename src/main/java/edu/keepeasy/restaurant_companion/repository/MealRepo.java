@@ -59,29 +59,47 @@ public class MealRepo implements Repository<Meal> {
         Object[] args = new Object[]{id};
         int[] argTypes = new int[]{Types.BIGINT};
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(selectByIDQuery, args, argTypes);
-        if (!rowSet.next()) {
-            return null;
-        } else {
+        if (rowSet.next()) {
             return new Meal(
                     rowSet.getLong("id"),
                     rowSet.getString("mealName"),
                     rowSet.getInt("mealCost"),
                     rowSet.getBoolean("mealAvailable"));
+        } else {
+            return null;
         }
     }
 
 
     @Override
     public Meal update(long id, Meal entity) {
-        Object[] args = new Object[]{};
-        int[] argTypes = new int[]{};
+        Object[] args = new Object[]{entity.getId(), entity.getMealName(), entity.getMealCost(), entity.isMealAvailable(), id};
+        int[] argTypes = new int[]{Types.BIGINT, Types.CHAR, Types.INTEGER, Types.BOOLEAN, Types.BIGINT};
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(updateQuery, args, argTypes);
-
-        return null;
+        if (rowSet.next()) {
+            return new Meal(
+                    rowSet.getLong("id"),
+                    rowSet.getString("mealName"),
+                    rowSet.getInt("mealCost"),
+                    rowSet.getBoolean("mealAvailable"));
+        } else {
+            return null;
+        }
     }
 
     @Override
     public Meal delete(Meal entity) {
-        return null;
+        Object[] args = new Object[]{entity.getId(), entity.getMealName(), entity.getMealCost(), entity.isMealAvailable()};
+        int[] argTypes = new int[]{Types.BIGINT, Types.CHAR, Types.INTEGER, Types.BOOLEAN};
+        SqlRowSet rowSet = jdbcOperations.queryForRowSet(deleteQuery, args, argTypes);
+        if (rowSet.next()) {
+            return new Meal(
+                    rowSet.getLong("id"),
+                    rowSet.getString("mealName"),
+                    rowSet.getInt("mealCost"),
+                    rowSet.getBoolean("mealAvailable"));
+        } else {
+            return null;
+        }
     }
 }
