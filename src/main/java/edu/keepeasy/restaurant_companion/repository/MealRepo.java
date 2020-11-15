@@ -59,15 +59,7 @@ public class MealRepo implements Repository<Meal> {
         Object[] args = new Object[]{id};
         int[] argTypes = new int[]{Types.BIGINT};
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(selectByIDQuery, args, argTypes);
-        if (rowSet.next()) {
-            return new Meal(
-                    rowSet.getLong("id"),
-                    rowSet.getString("mealName"),
-                    rowSet.getInt("mealCost"),
-                    rowSet.getBoolean("mealAvailable"));
-        } else {
-            return null;
-        }
+        return getResult(rowSet);
     }
 
 
@@ -76,15 +68,7 @@ public class MealRepo implements Repository<Meal> {
         Object[] args = new Object[]{entity.getId(), entity.getMealName(), entity.getMealCost(), entity.isMealAvailable(), id};
         int[] argTypes = new int[]{Types.BIGINT, Types.CHAR, Types.INTEGER, Types.BOOLEAN, Types.BIGINT};
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(updateQuery, args, argTypes);
-        if (rowSet.next()) {
-            return new Meal(
-                    rowSet.getLong("id"),
-                    rowSet.getString("mealName"),
-                    rowSet.getInt("mealCost"),
-                    rowSet.getBoolean("mealAvailable"));
-        } else {
-            return null;
-        }
+        return getResult(rowSet);
     }
 
     @Override
@@ -92,6 +76,10 @@ public class MealRepo implements Repository<Meal> {
         Object[] args = new Object[]{entity.getId(), entity.getMealName(), entity.getMealCost(), entity.isMealAvailable()};
         int[] argTypes = new int[]{Types.BIGINT, Types.CHAR, Types.INTEGER, Types.BOOLEAN};
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(deleteQuery, args, argTypes);
+        return getResult(rowSet);
+    }
+
+    private Meal getResult(SqlRowSet rowSet) {
         if (rowSet.next()) {
             return new Meal(
                     rowSet.getLong("id"),
