@@ -13,7 +13,7 @@ public class OrderRepo implements Repository<Order> {
     private static final String insertQuery = "INSERT INTO orders(waiterID, tableID, orderStatus) value (?,?,?)";
     private static final String selectAllQuery = "SELECT id, waiterID, tableID, orderStatus FROM orders";
     private static final String selectByIDQuery = "SELECT id, waiterID, tableID, orderStatus FROM orders where id=?";
-    private static final String updateQuery = "UPDATE orders SET id=?, waiterID=?, tableID=?, orderStatus=?";
+    private static final String updateQuery = "UPDATE orders SET id=?, waiterID=?, tableID=?, orderStatus=? where id=?";
     private static final String deleteQuery = "DELETE FROM orders where id=?";
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -62,12 +62,14 @@ public class OrderRepo implements Repository<Order> {
                 id,
                 entity.getWaiterID(),
                 entity.getTableID(),
-                entity.isOrderStatus()};
+                entity.isOrderStatus(),
+                id};
         int[] argTypes = new int[]{
                 Types.BIGINT,
                 Types.BIGINT,
                 Types.INTEGER,
-                Types.BOOLEAN};
+                Types.BOOLEAN,
+                Types.BIGINT};
         return getResult(
                 jdbcOperations.queryForRowSet(
                         updateQuery,
