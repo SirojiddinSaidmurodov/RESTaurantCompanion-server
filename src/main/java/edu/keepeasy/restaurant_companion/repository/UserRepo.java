@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 @org.springframework.stereotype.Repository
 public class UserRepo implements Repository<User> {
-    private static final String insertQuery = "INSERT INTO user(name, login, passwordHash, userType) VALUE (?,?,?,?)";
-    private static final String selectAllQuery = "SELECT id, name, login, passwordHash, userType FROM user";
-    private static final String selectByID = "SELECT id, name, login, passwordHash, userType FROM user where id=?";
+    private static final String insertQuery = "INSERT INTO user(name, login, password, userType) VALUE (?,?,?,?)";
+    private static final String selectAllQuery = "SELECT id, name, login, password, userType FROM user";
+    private static final String selectByID = "SELECT id, name, login, password, userType FROM user where id=?";
     private static final String deleteQuery = "DELETE FROM user where id=?";
-    private static final String updateQuery = "UPDATE user SET id=?,name=?,login=?,passwordHash=?,userType=? where id=?";
+    private static final String updateQuery = "UPDATE user SET id=?,name=?,login=?,password=?,userType=? where id=?";
     @Autowired
     JdbcOperations jdbcOperations;
 
