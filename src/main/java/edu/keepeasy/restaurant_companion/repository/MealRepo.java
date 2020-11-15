@@ -55,27 +55,41 @@ public class MealRepo implements Repository<Meal> {
 
     @Override
     public Meal read(long id) {
-        Object[] args = new Object[]{id};
-        int[] argTypes = new int[]{Types.BIGINT};
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(selectByIDQuery, args, argTypes);
-        return getResult(rowSet);
+        return getResult(
+                jdbcOperations.queryForRowSet(
+                        selectByIDQuery,
+                        new Object[]{id},
+                        new int[]{Types.BIGINT}));
     }
 
 
     @Override
     public Meal update(long id, Meal entity) {
-        Object[] args = new Object[]{entity.getId(), entity.getMealName(), entity.getMealCost(), entity.isMealAvailable(), id};
-        int[] argTypes = new int[]{Types.BIGINT, Types.CHAR, Types.INTEGER, Types.BOOLEAN, Types.BIGINT};
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(updateQuery, args, argTypes);
-        return getResult(rowSet);
+        Object[] args = new Object[]{
+                entity.getId(),
+                entity.getMealName(),
+                entity.getMealCost(),
+                entity.isMealAvailable(),
+                id};
+        int[] argTypes = new int[]{
+                Types.BIGINT,
+                Types.CHAR,
+                Types.INTEGER,
+                Types.BOOLEAN,
+                Types.BIGINT};
+        return getResult(jdbcOperations.queryForRowSet(
+                updateQuery,
+                args,
+                argTypes));
     }
 
     @Override
     public Meal delete(Meal entity) {
-        Object[] args = new Object[]{entity.getId()};
-        int[] argTypes = new int[]{Types.BIGINT};
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(deleteQuery, args, argTypes);
-        return getResult(rowSet);
+        return getResult(
+                jdbcOperations.queryForRowSet(
+                        deleteQuery,
+                        new Object[]{entity.getId()},
+                        new int[]{Types.BIGINT}));
     }
 
     private Meal getResult(SqlRowSet rowSet) {
