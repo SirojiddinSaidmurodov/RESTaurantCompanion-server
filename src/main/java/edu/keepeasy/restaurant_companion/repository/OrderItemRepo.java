@@ -4,13 +4,18 @@ import edu.keepeasy.restaurant_companion.domain.Meal;
 
 public class OrderItemRepo implements Repository<Meal> {
     @Override
-    public void save(Meal entity) {
+    public void create(Meal entity) {
 
     }
 
     @Override
-    public Meal[] read(Specification specification) {
+    public Meal[] readAll() {
         return new Meal[0];
+    }
+
+    @Override
+    public Meal read(long id) {
+        return null;
     }
 
     @Override
