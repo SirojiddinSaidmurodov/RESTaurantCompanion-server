@@ -12,7 +12,17 @@ class RestaurantCompanionApplicationTests {
     MealRepo mealRepo;
     @Test
     void mealAdding(){
-        mealRepo.create(new Meal(0, "Шашлык", 150, true));
+        Meal meal = new Meal(0, "Шашлык", 150, true);
+        mealRepo.create(meal);
+        System.out.println(meal.getId());
+    }
+    @Test
+    void mealsReading(){
+        Meal[] meals = mealRepo.readAll();
+        for (Meal meal :
+                meals) {
+            System.out.println(meal.getMealCost());
+        }
     }
 
 }
