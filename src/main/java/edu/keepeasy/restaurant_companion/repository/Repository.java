@@ -3,9 +3,11 @@ package edu.keepeasy.restaurant_companion.repository;
 import edu.keepeasy.restaurant_companion.domain.Entity;
 
 public interface Repository<T extends Entity> {
-    void save(T entity);
+    void create(T entity);
 
-    T[] read(Specification specification);
+    T[] readAll();
+
+    T read(long id);
 
     void update(T entity);
 

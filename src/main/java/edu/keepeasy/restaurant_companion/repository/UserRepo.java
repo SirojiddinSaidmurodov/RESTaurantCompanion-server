@@ -5,13 +5,18 @@ import edu.keepeasy.restaurant_companion.domain.User;
 public class UserRepo implements Repository<User> {
 
     @Override
-    public void save(User entity) {
+    public void create(User entity) {
 
     }
 
     @Override
-    public User[] read(Specification specification) {
+    public User[] readAll() {
         return new User[0];
+    }
+
+    @Override
+    public User read(long id) {
+        return null;
     }
 
     @Override
