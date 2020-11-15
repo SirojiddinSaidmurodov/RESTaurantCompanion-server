@@ -72,8 +72,8 @@ public class MealRepo implements Repository<Meal> {
 
     @Override
     public Meal delete(Meal entity) {
-        Object[] args = new Object[]{entity.getId(), entity.getMealName(), entity.getMealCost(), entity.isMealAvailable()};
-        int[] argTypes = new int[]{Types.BIGINT, Types.CHAR, Types.INTEGER, Types.BOOLEAN};
+        Object[] args = new Object[]{entity.getId()};
+        int[] argTypes = new int[]{Types.BIGINT};
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(deleteQuery, args, argTypes);
         return getResult(rowSet);
     }
