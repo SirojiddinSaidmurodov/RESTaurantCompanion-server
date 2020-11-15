@@ -3,13 +3,13 @@ package edu.keepeasy.restaurant_companion.domain;
 public class Order extends Entity {
     private long waiterID;
     private int tableID;
-    private boolean orderStatus;
+    private boolean ready;
 
-    public Order(long id, long waiterID, int tableID, boolean orderStatus) {
+    public Order(long id, long waiterID, int tableID, boolean ready) {
         super(id);
         this.waiterID = waiterID;
         this.tableID = tableID;
-        this.orderStatus = orderStatus;
+        this.ready = ready;
     }
 
     public long getWaiterID() {
@@ -28,11 +28,11 @@ public class Order extends Entity {
         this.tableID = tableID;
     }
 
-    public boolean isOrderStatus() {
-        return orderStatus;
+    public boolean isReady() {
+        return ready;
     }
 
-    public void setOrderStatus(boolean orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setReady(boolean ready) {
+        this.ready = ready;
     }
 }

@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 @org.springframework.stereotype.Repository
 public class OrderRepo implements Repository<Order> {
-    private static final String insertQuery = "INSERT INTO orders(waiterID, tableID, orderStatus) value (?,?,?)";
-    private static final String selectAllQuery = "SELECT id, waiterID, tableID, orderStatus FROM orders";
-    private static final String selectByIDQuery = "SELECT id, waiterID, tableID, orderStatus FROM orders where id=?";
-    private static final String updateQuery = "UPDATE orders SET id=?, waiterID=?, tableID=?, orderStatus=? where id=?";
+    private static final String insertQuery = "INSERT INTO orders(waiterID, tableID, ready) value (?,?,?)";
+    private static final String selectAllQuery = "SELECT id, waiterID, tableID, ready FROM orders";
+    private static final String selectByIDQuery = "SELECT id, waiterID, tableID, ready FROM orders where id=?";
+    private static final String updateQuery = "UPDATE orders SET id=?, waiterID=?, tableID=?, ready=? where id=?";
     private static final String deleteQuery = "DELETE FROM orders where id=?";
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -23,7 +23,7 @@ public class OrderRepo implements Repository<Order> {
         Object[] args = new Object[]{
                 entity.getWaiterID(),
                 entity.getTableID(),
-                entity.isOrderStatus()};
+                entity.isReady()};
         int[] argTypes = new int[]{
                 Types.BIGINT,
                 Types.INTEGER,
@@ -62,7 +62,7 @@ public class OrderRepo implements Repository<Order> {
                 id,
                 entity.getWaiterID(),
                 entity.getTableID(),
-                entity.isOrderStatus(),
+                entity.isReady(),
                 id};
         int[] argTypes = new int[]{
                 Types.BIGINT,
@@ -92,7 +92,7 @@ public class OrderRepo implements Repository<Order> {
                     rowSet.getLong("id"),
                     rowSet.getLong("waiterID"),
                     rowSet.getInt("tableID"),
-                    rowSet.getBoolean("orderStatus"));
+                    rowSet.getBoolean("ready"));
         } else {
             return null;
         }
