@@ -1,7 +1,7 @@
 package edu.keepeasy.restaurant_companion.domain;
 
 public abstract class Entity {
-    public long id;
+    private long id;
 
     public Entity(long id) {
         this.id = id;
