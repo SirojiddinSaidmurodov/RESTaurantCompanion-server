@@ -48,10 +48,11 @@ public class UserRepo implements Repository<User> {
 
     @Override
     public User read(long id) {
-        Object[] args = new Object[]{id};
-        int[] argTypes = new int[]{Types.BIGINT};
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(selectByID, args, argTypes);
-        return getResult(rowSet);
+        return getResult(
+                jdbcOperations.queryForRowSet(
+                        selectByID,
+                        new Object[]{id},
+                        new int[]{Types.BIGINT}));
     }
 
     @Override
@@ -76,12 +77,11 @@ public class UserRepo implements Repository<User> {
 
     @Override
     public User delete(User entity) {
-        Object[] args = new Object[]{
-                entity.getId()};
-        int[] argTypes = new int[]{
-                Types.BIGINT};
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(deleteQuery);
-        return getResult(rowSet);
+        return getResult(
+                jdbcOperations.queryForRowSet(
+                        deleteQuery,
+                        new Object[]{entity.getId()},
+                        new int[]{Types.BIGINT}));
     }
 
     private User getResult(SqlRowSet rowSet) {
