@@ -3,11 +3,11 @@ create database restaurant;
 use restaurant;
 CREATE TABLE IF NOT EXISTS `user`
 (
-    id             SERIAL PRIMARY KEY,
-    `name`         CHAR(40),
-    `login`        CHAR(40),
-    `passwordHash` CHAR(64),
-    `userType`     ENUM ('ADMIN', 'COOK', 'WAITER')
+    id         SERIAL PRIMARY KEY,
+    `name`     CHAR(40),
+    `login`    CHAR(40),
+    `password` CHAR(255),
+    `userType` ENUM ('ADMIN', 'COOK', 'WAITER')
 ) comment = 'Basic user entity';
 CREATE TABLE IF NOT EXISTS `orders`
 (
