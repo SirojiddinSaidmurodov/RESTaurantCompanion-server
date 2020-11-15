@@ -5,8 +5,8 @@ import edu.keepeasy.restaurant_companion.domain.User;
 public class UserRepo implements Repository<User> {
 
     @Override
-    public void create(User entity) {
-
+    public User create(User entity) {
+        return null;
     }
 
     @Override
@@ -20,12 +20,12 @@ public class UserRepo implements Repository<User> {
     }
 
     @Override
-    public void update(long id, User entity) {
-
+    public User update(long id, User entity) {
+        return null;
     }
 
     @Override
-    public void delete(User entity) {
-
+    public User delete(User entity) {
+        return null;
     }
 }

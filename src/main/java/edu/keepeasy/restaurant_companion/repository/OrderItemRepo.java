@@ -4,8 +4,8 @@ import edu.keepeasy.restaurant_companion.domain.Meal;
 
 public class OrderItemRepo implements Repository<Meal> {
     @Override
-    public void create(Meal entity) {
-
+    public Meal create(Meal entity) {
+        return null;
     }
 
     @Override
@@ -19,12 +19,12 @@ public class OrderItemRepo implements Repository<Meal> {
     }
 
     @Override
-    public void update(long id, Meal entity) {
-
+    public Meal update(long id, Meal entity) {
+        return null;
     }
 
     @Override
-    public void delete(Meal entity) {
-
+    public Meal delete(Meal entity) {
+        return null;
     }
 }
