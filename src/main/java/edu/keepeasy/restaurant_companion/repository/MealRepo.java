@@ -25,7 +25,7 @@ public class MealRepo implements Repository<Meal> {
     JdbcOperations jdbcOperations;
 
     @Override
-    public void create(Meal entity) {
+    public Meal create(Meal entity) {
         long id = Objects.requireNonNull(new SimpleJdbcInsert(template)
                 .withTableName("Meal")
                 .usingColumns("mealName", "mealCost", "mealAvailable")
@@ -37,6 +37,7 @@ public class MealRepo implements Repository<Meal> {
                 .getKey())
                 .longValue();
         entity.setId(id);
+        return entity;
     }
 
     @Override
@@ -71,12 +72,16 @@ public class MealRepo implements Repository<Meal> {
 
 
     @Override
-    public void update(Meal entity) {
+    public Meal update(long id, Meal entity) {
+        Object[] args = new Object[]{};
+        int[] argTypes = new int[]{};
+        SqlRowSet rowSet = jdbcOperations.queryForRowSet(updateQuery, args, argTypes);
 
+        return null;
     }
 
     @Override
-    public void delete(Meal entity) {
-
+    public Meal delete(Meal entity) {
+        return null;
     }
 }
