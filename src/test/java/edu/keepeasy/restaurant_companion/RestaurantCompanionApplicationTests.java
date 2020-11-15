@@ -12,7 +12,7 @@ class RestaurantCompanionApplicationTests {
     MealRepo mealRepo;
     @Test
     void mealAdding(){
-        mealRepo.save(new Meal(0, "Шашлык", 150, true));
+        mealRepo.create(new Meal(0, "Шашлык", 150, true));
     }
 
 }
