@@ -19,7 +19,7 @@ public class OrderRepo implements Repository<Order> {
     }
 
     @Override
-    public void update(Order entity) {
+    public void update(long id, Order entity) {
 
     }
 
