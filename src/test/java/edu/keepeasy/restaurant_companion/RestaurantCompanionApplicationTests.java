@@ -24,5 +24,10 @@ class RestaurantCompanionApplicationTests {
             System.out.println(meal.getMealCost());
         }
     }
+    @Test
+    void mealReading(){
+        Meal meal = mealRepo.read(1);
+        System.out.println(meal.getMealName());
+    }
 
 }
