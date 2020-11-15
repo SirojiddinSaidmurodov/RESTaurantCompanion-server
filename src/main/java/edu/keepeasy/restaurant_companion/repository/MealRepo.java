@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
@@ -15,6 +16,7 @@ import java.util.Objects;
 public class MealRepo implements Repository<Meal> {
     private static final String insertQuery = "INSERT INTO meal (mealName, mealCost, mealAvailable) VALUES (?, ?, ?)";
     private static final String selectQuery = "SELECT id, mealName, mealCost, mealAvailable from meal";
+    private static final String selectByIDQuery = "SELECT id, mealName, mealCost, mealAvailable from meal where id=?";
     private static final String updateQuery = "UPDATE meal SET mealName = ?, mealCost = ?, mealAvailable = ? where id = ?";
     private static final String deleteQuery = "DELETE FROM meal where id = ?";
     @Autowired
@@ -53,8 +55,18 @@ public class MealRepo implements Repository<Meal> {
 
     @Override
     public Meal read(long id) {
-
-        return null;
+        Object[] args = new Object[]{id};
+        int[] argTypes = new int[]{Types.BIGINT};
+        SqlRowSet rowSet = jdbcOperations.queryForRowSet(selectByIDQuery, args, argTypes);
+        if (!rowSet.next()) {
+            return null;
+        } else {
+            return new Meal(
+                    rowSet.getLong("id"),
+                    rowSet.getString("mealName"),
+                    rowSet.getInt("mealCost"),
+                    rowSet.getBoolean("mealAvailable"));
+        }
     }
 
 
