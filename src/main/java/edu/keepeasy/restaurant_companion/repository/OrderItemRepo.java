@@ -17,7 +17,7 @@ import java.util.Objects;
 @Repository
 public class OrderItemRepo {
     private static final String selectByIDQuery = "SELECT id, mealID, orderID, quantity FROM orderItems where id = ?";
-    private static final String selectAllQuery = "SELECT id, mealID, orderID, quantity FROM orderItems";
+    private static final String selectAllQuery = "SELECT id, mealID, orderID, quantity FROM orderItems where mealID = ?";
     private static final String updateQuery = "UPDATE orderItems SET id = ?, mealID = ?, orderID = ?, quantity = ? where id = ?";
     private static final String deleteQuery = "DELETE FROM orderItems where id = ?";
     @Autowired
@@ -41,7 +41,10 @@ public class OrderItemRepo {
 
     public OrderItem[] readAll(Order order) {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(selectAllQuery);
+        SqlRowSet rowSet = jdbcOperations.queryForRowSet(
+                selectAllQuery,
+                new Object[]{order.getId()},
+                new int[]{Types.BIGINT});
         OrderItem orderItem = getResult(rowSet);
         while (orderItem != null) {
             orderItems.add(orderItem);
@@ -83,7 +86,7 @@ public class OrderItemRepo {
         }
     }
 
-    public OrderItem delete(Order order, OrderItem entity) {
+    public OrderItem delete(OrderItem entity) {
         int rows = jdbcOperations.update(
                 deleteQuery,
                 new Object[]{entity.getId()},
