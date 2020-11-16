@@ -2,11 +2,9 @@ package edu.keepeasy.restaurant_companion;
 
 import edu.keepeasy.restaurant_companion.domain.Meal;
 import edu.keepeasy.restaurant_companion.repository.MealRepo;
-import edu.keepeasy.restaurant_companion.repository.UserRepo;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
