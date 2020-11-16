@@ -66,30 +66,32 @@ public class MealRepo implements Repository<Meal> {
     @Override
     public Meal update(long id, Meal entity) {
         Object[] args = new Object[]{
-                entity.getId(),
                 entity.getMealName(),
                 entity.getMealCost(),
                 entity.isMealAvailable(),
                 id};
         int[] argTypes = new int[]{
-                Types.BIGINT,
                 Types.CHAR,
                 Types.INTEGER,
                 Types.BOOLEAN,
                 Types.BIGINT};
-        return getResult(jdbcOperations.queryForRowSet(
-                updateQuery,
-                args,
-                argTypes));
+        int updateRows = jdbcOperations.update(
+                updateQuery, args, argTypes);
+        if (updateRows == 0) {
+            return null;
+        } else {
+            return entity;
+        }
     }
 
     @Override
     public Meal delete(Meal entity) {
-        return getResult(
-                jdbcOperations.queryForRowSet(
-                        deleteQuery,
-                        new Object[]{entity.getId()},
-                        new int[]{Types.BIGINT}));
+        int updateRows = jdbcOperations.update(deleteQuery, new Object[]{entity.getId()}, new int[]{Types.BIGINT});
+        if (updateRows == 0) {
+            return null;
+        } else {
+            return entity;
+        }
     }
 
     private Meal getResult(SqlRowSet rowSet) {
