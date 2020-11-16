@@ -27,11 +27,12 @@ class RepoTest {
     }
 
     @Test
-    void mealaReading() {
+    void mealReading() {
         meals = mealRepo.readAll();
         for (Meal meal : meals) {
             System.out.println(meal.getId());
         }
+        assertEquals("meals Count", 5, mealRepo.readAll().length);
     }
 
     @Test
@@ -39,7 +40,18 @@ class RepoTest {
         meals = mealRepo.readAll();
         mealRepo.delete(meals[2]);
         mealRepo.delete(meals[4]);
-        mealaReading();
+        assertEquals("meals Count", 3, mealRepo.readAll().length);
+    }
+
+    @Test
+    void mealEditing() {
+        meals = mealRepo.readAll();
+        mealRepo.update(1, new Meal(1, "asd", 234, false));
+        Meal t = mealRepo.read(1);
+        assertEquals("id", (long) 1, t.getId());
+        assertEquals("mealName", "asd", t.getMealName());
+        assertEquals("mealCost", 234, t.getMealName());
+        assertEquals("mealAvailable", false, t.isMealAvailable());
     }
 
 }
