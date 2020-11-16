@@ -86,7 +86,10 @@ public class MealRepo implements Repository<Meal> {
 
     @Override
     public Meal delete(Meal entity) {
-        int updateRows = jdbcOperations.update(deleteQuery, new Object[]{entity.getId()}, new int[]{Types.BIGINT});
+        int updateRows = jdbcOperations.update(
+                deleteQuery,
+                new Object[]{entity.getId()},
+                new int[]{Types.BIGINT});
         if (updateRows == 0) {
             return null;
         } else {
