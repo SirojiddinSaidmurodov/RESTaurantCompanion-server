@@ -14,11 +14,10 @@ import java.util.Objects;
 
 @org.springframework.stereotype.Repository
 public class UserRepo implements Repository<User> {
-    private static final String insertQuery = "INSERT INTO user(name, login, password, userType) VALUE (?,?,?,?); SELECT id, name, login, password, userType FROM user where id=LAST_INSERT_ID()";
     private static final String selectAllQuery = "SELECT id, name, login, password, userType FROM user";
-    private static final String selectByID = "SELECT id, name, login, password, userType FROM user where id=?";
-    private static final String deleteQuery = "DELETE FROM user where id=?";
-    private static final String updateQuery = "UPDATE user SET id=?,name=?,login=?,password=?,userType=? where id=?";
+    private static final String selectByID = "SELECT id, name, login, password, userType FROM user where id = ?";
+    private static final String deleteQuery = "DELETE FROM user where id = ?";
+    private static final String updateQuery = "UPDATE user SET id = ?, name = ?, login = ?, password = ?, userType = ? where id = ?";
     @Autowired
     JdbcOperations jdbcOperations;
     @Autowired
@@ -78,17 +77,29 @@ public class UserRepo implements Repository<User> {
                 Types.CHAR,
                 Types.INTEGER,
                 Types.BIGINT};
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(updateQuery, args, argTypes);
-        return getResult(rowSet);
+        int rows = jdbcOperations.update(
+                updateQuery,
+                args,
+                argTypes);
+        if (rows == 0) {
+            return null;
+        } else {
+            entity.setId(id);
+            return entity;
+        }
     }
 
     @Override
     public User delete(User entity) {
-        return getResult(
-                jdbcOperations.queryForRowSet(
-                        deleteQuery,
-                        new Object[]{entity.getId()},
-                        new int[]{Types.BIGINT}));
+        int rows = jdbcOperations.update(
+                deleteQuery,
+                new Object[]{entity.getId()},
+                new int[]{Types.BIGINT});
+        if (rows == 0) {
+            return null;
+        } else {
+            return entity;
+        }
     }
 
     private User getResult(SqlRowSet rowSet) {
