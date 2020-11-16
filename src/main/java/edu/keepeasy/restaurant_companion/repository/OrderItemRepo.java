@@ -18,7 +18,7 @@ public class OrderItemRepo {
     @Autowired
     JdbcTemplate template;
 
-    public OrderItem create(Order order, OrderItem entity) {
+    public OrderItem create(OrderItem entity) {
         long id = Objects.requireNonNull(new SimpleJdbcInsert(template)
                 .withTableName("orderitems")
                 .usingColumns("mealID", "orderID", "quantity")
