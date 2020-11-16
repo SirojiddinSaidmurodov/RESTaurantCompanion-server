@@ -73,20 +73,29 @@ public class OrderRepo implements Repository<Order> {
                 Types.INTEGER,
                 Types.BOOLEAN,
                 Types.BIGINT};
-        return getResult(
-                jdbcOperations.queryForRowSet(
+        int rows = jdbcOperations.update(
                         updateQuery,
                         args,
-                        argTypes));
+                        argTypes);
+        if (rows == 0){
+            return null;
+        }else{
+            entity.setId(id);
+            return entity;
+        }
     }
 
     @Override
     public Order delete(Order entity) {
-        return getResult(
-                jdbcOperations.queryForRowSet(
+        int rows = jdbcOperations.update(
                         deleteQuery,
                         new Object[]{entity.getId()},
-                        new int[]{Types.BIGINT}));
+                        new int[]{Types.BIGINT});
+        if (rows == 0){
+            return null;
+        }else{
+            return entity;
+        }
     }
 
     private Order getResult(SqlRowSet rowSet) {
