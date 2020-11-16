@@ -3,35 +3,42 @@ package edu.keepeasy.restaurant_companion.repository;
 import edu.keepeasy.restaurant_companion.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
 
 @org.springframework.stereotype.Repository
 public class UserRepo implements Repository<User> {
-    private static final String insertQuery = "INSERT INTO user(name, login, password, userType) VALUE (?,?,?,?)";
+    private static final String insertQuery = "INSERT INTO user(name, login, password, userType) VALUE (?,?,?,?); SELECT id, name, login, password, userType FROM user where id=LAST_INSERT_ID()";
     private static final String selectAllQuery = "SELECT id, name, login, password, userType FROM user";
     private static final String selectByID = "SELECT id, name, login, password, userType FROM user where id=?";
     private static final String deleteQuery = "DELETE FROM user where id=?";
     private static final String updateQuery = "UPDATE user SET id=?,name=?,login=?,password=?,userType=? where id=?";
     @Autowired
     JdbcOperations jdbcOperations;
+    @Autowired
+    JdbcTemplate template;
 
     @Override
     public User create(User entity) {
-        Object[] args = new Object[]{
-                entity.getName(),
-                entity.getLogin(),
-                entity.getPassword(),
-                entity.getUserType().getValue()};
-        int[] argTypes = new int[]{
-                Types.CHAR,
-                Types.CHAR,
-                Types.CHAR,
-                Types.INTEGER};
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet(insertQuery, args, argTypes);
-        return getResult(rowSet);
+        long id = Objects.requireNonNull(new SimpleJdbcInsert(template)
+                .withTableName("user")
+                .usingColumns("name", "login", "password", "userType")
+                .usingGeneratedKeyColumns("id")
+                .executeAndReturnKeyHolder(Map.of(
+                        "name", entity.getName(),
+                        "login", entity.getLogin(),
+                        "password", entity.getPassword(),
+                        "userType", entity.getUserType().getValue()))
+                .getKey())
+                .longValue();
+        entity.setId(id);
+        return entity;
     }
 
     @Override
