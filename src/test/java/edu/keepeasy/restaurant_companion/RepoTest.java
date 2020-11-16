@@ -3,20 +3,39 @@ package edu.keepeasy.restaurant_companion;
 import edu.keepeasy.restaurant_companion.domain.Meal;
 import edu.keepeasy.restaurant_companion.repository.MealRepo;
 import edu.keepeasy.restaurant_companion.repository.UserRepo;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RepoTest {
     @Autowired
     MealRepo mealRepo;
     Meal[] meals;
-    @Autowired
-    private UserRepo userRepo;
+
+    @BeforeAll
+    static void truncate() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            String dbUrl = "jdbc:mysql://localhost/restaurant?serverTimezone=Europe/Moscow&useSSL=false";
+            Connection connection = DriverManager.getConnection(dbUrl, "root", "131214");
+            ScriptUtils.executeSqlScript(connection, new ClassPathResource("schema.sql"));
+            connection.close();
+        } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     @Test
     @Order(1)
