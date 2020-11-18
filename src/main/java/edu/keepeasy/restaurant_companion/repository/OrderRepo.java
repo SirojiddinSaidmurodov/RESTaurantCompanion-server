@@ -18,10 +18,13 @@ public class OrderRepo implements Repository<Order> {
     private static final String selectByIDQuery = "SELECT id, waiterID, tableID, ready FROM orders where id=?";
     private static final String updateQuery = "UPDATE orders SET id=?, waiterID=?, tableID=?, ready=? where id=?";
     private static final String deleteQuery = "DELETE FROM orders where id=?";
-    @Autowired
-    private JdbcOperations jdbcOperations;
-    @Autowired
-    private JdbcTemplate template;
+    private final JdbcOperations jdbcOperations;
+    private final JdbcTemplate template;
+
+    public OrderRepo(@Autowired JdbcOperations jdbcOperations, @Autowired JdbcTemplate template) {
+        this.jdbcOperations = jdbcOperations;
+        this.template = template;
+    }
 
     @Override
     public Order create(Order entity) {
@@ -74,12 +77,12 @@ public class OrderRepo implements Repository<Order> {
                 Types.BOOLEAN,
                 Types.BIGINT};
         int rows = jdbcOperations.update(
-                        updateQuery,
-                        args,
-                        argTypes);
-        if (rows == 0){
+                updateQuery,
+                args,
+                argTypes);
+        if (rows == 0) {
             return null;
-        }else{
+        } else {
             entity.setId(id);
             return entity;
         }
@@ -88,12 +91,12 @@ public class OrderRepo implements Repository<Order> {
     @Override
     public Order delete(Order entity) {
         int rows = jdbcOperations.update(
-                        deleteQuery,
-                        new Object[]{entity.getId()},
-                        new int[]{Types.BIGINT});
-        if (rows == 0){
+                deleteQuery,
+                new Object[]{entity.getId()},
+                new int[]{Types.BIGINT});
+        if (rows == 0) {
             return null;
-        }else{
+        } else {
             return entity;
         }
     }
