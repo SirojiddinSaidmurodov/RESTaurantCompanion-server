@@ -21,7 +21,7 @@ public class UserController {
     @PostMapping(value = "")
     UserResource post(@RequestBody UserResource resource) {
         User user = repo.create(resource.toEntity());
-        return user == null ? null : new UserResource(user);
+        return (user == null) ? null : new UserResource(user);
     }
 
     @GetMapping(value = "")
@@ -35,20 +35,20 @@ public class UserController {
     @GetMapping(value = "/{id}")
     UserResource get(@PathVariable long id) {
         User user = repo.read(id);
-        return user == null ? null : new UserResource(user);
+        return (user == null) ? null : new UserResource(user);
     }
 
     @PutMapping(value = "/{id}")
     UserResource put(@PathVariable long id, @RequestBody UserResource resource) {
         User user = repo.update(id, resource.toEntity());
-        return user == null ? null : new UserResource(user);
+        return (user == null) ? null : new UserResource(user);
     }
 
     @DeleteMapping(value = "/{id}")
     UserResource delete(@PathVariable long id) {
         User entity = repo.read(id);
-        User user = entity == null ? null : repo.delete(entity);
-        return user == null ? null : new UserResource(user);
+        User user = (entity == null) ? null : repo.delete(entity);
+        return (user == null) ? null : new UserResource(user);
     }
 
 }
