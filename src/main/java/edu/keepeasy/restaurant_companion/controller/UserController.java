@@ -1,5 +1,6 @@
 package edu.keepeasy.restaurant_companion.controller;
 
+import edu.keepeasy.restaurant_companion.domain.User;
 import edu.keepeasy.restaurant_companion.repository.UserRepo;
 import edu.keepeasy.restaurant_companion.resource.UserResource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class UserController {
 
     @PostMapping(value = "")
     UserResource post(@RequestBody UserResource resource) {
-        return new UserResource(repo.create(resource.toEntity()));
+        User user = repo.create(resource.toEntity());
+        return user == null ? null : new UserResource(user);
     }
 
     @GetMapping(value = "")
@@ -32,17 +34,20 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     UserResource get(@PathVariable long id) {
-        return new UserResource(repo.read(id));
+        User user = repo.read(id);
+        return user == null ? null : new UserResource(user);
     }
 
     @PutMapping(value = "/{id}")
     UserResource put(@PathVariable long id, @RequestBody UserResource resource) {
-        return new UserResource(repo.update(id, resource.toEntity()));
+        User user = repo.update(id, resource.toEntity());
+        return user == null ? null : new UserResource(user);
     }
 
     @DeleteMapping(value = "/{id}")
     UserResource delete(@PathVariable long id) {
-        return new UserResource(repo.delete(repo.read(id)));
+        User user = repo.delete(repo.read(id));
+        return user == null ? null : new UserResource(user);
     }
 
 }
