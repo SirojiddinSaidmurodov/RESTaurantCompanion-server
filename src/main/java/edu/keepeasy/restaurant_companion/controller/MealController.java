@@ -45,7 +45,8 @@ public class MealController {
 
     @DeleteMapping(value = "/{id}")
     MealResource delete(@PathVariable long id) {
-        Meal meal = repo.delete(repo.read(id));
+        Meal entity = repo.read(id);
+        Meal meal = entity == null ? null : repo.delete(entity);
         return meal == null ? null : new MealResource(meal);
     }
 

@@ -46,7 +46,8 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     UserResource delete(@PathVariable long id) {
-        User user = repo.delete(repo.read(id));
+        User entity = repo.read(id);
+        User user = entity == null ? null : repo.delete(entity);
         return user == null ? null : new UserResource(user);
     }
 
