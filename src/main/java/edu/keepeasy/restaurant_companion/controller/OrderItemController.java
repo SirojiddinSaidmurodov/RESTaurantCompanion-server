@@ -47,7 +47,8 @@ public class OrderItemController {
 
     @DeleteMapping(value = "/{id}")
     OrderItemResource delete(@PathVariable long id) {
-        OrderItem orderItem = repo.delete(repo.read(id));
+        OrderItem entity = repo.read(id);
+        OrderItem orderItem = entity == null ? null : repo.delete(entity);
         return orderItem == null ? null : new OrderItemResource(orderItem);
     }
 }
