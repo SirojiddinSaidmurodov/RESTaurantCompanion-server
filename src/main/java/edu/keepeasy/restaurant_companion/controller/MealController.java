@@ -21,7 +21,7 @@ public class MealController {
     @PostMapping(value = "")
     MealResource post(@RequestBody MealResource mealResource) {
         Meal meal = repo.create(mealResource.toEntity());
-        return meal == null ? null : new MealResource(meal);
+        return (meal == null) ? null : new MealResource(meal);
     }
 
     @GetMapping(value = "")
@@ -34,20 +34,20 @@ public class MealController {
     @GetMapping(value = "/{id}")
     MealResource get(@PathVariable long id) {
         Meal meal = repo.read(id);
-        return meal == null ? null : new MealResource(meal);
+        return (meal == null) ? null : new MealResource(meal);
     }
 
     @PutMapping(value = "/{id}")
     MealResource put(@PathVariable long id, @RequestBody MealResource mealResource) {
         Meal meal = repo.update(id, mealResource.toEntity());
-        return meal == null ? null : new MealResource(meal);
+        return (meal == null) ? null : new MealResource(meal);
     }
 
     @DeleteMapping(value = "/{id}")
     MealResource delete(@PathVariable long id) {
         Meal entity = repo.read(id);
-        Meal meal = entity == null ? null : repo.delete(entity);
-        return meal == null ? null : new MealResource(meal);
+        Meal meal = (entity == null) ? null : repo.delete(entity);
+        return (meal == null) ? null : new MealResource(meal);
     }
 
 

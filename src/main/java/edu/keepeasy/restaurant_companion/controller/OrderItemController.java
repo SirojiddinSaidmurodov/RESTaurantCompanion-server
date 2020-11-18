@@ -22,7 +22,7 @@ public class OrderItemController {
     @PostMapping(value = "")
     OrderItemResource post(@RequestBody OrderItemResource resource) {
         OrderItem orderItem = repo.create(resource.toEntity());
-        return orderItem == null ? null : new OrderItemResource(orderItem);
+        return (orderItem == null) ? null : new OrderItemResource(orderItem);
     }
 
     @GetMapping(value = "")
@@ -36,19 +36,19 @@ public class OrderItemController {
     @GetMapping(value = "/{id}")
     OrderItemResource get(@PathVariable long id) {
         OrderItem orderItem = repo.read(id);
-        return orderItem == null ? null : new OrderItemResource(orderItem);
+        return (orderItem == null) ? null : new OrderItemResource(orderItem);
     }
 
     @PutMapping(value = "/{id}")
     OrderItemResource put(@PathVariable long id, @RequestBody OrderItemResource resource) {
         OrderItem orderItem = repo.update(id, resource.toEntity());
-        return orderItem == null ? null : new OrderItemResource(orderItem);
+        return (orderItem == null) ? null : new OrderItemResource(orderItem);
     }
 
     @DeleteMapping(value = "/{id}")
     OrderItemResource delete(@PathVariable long id) {
         OrderItem entity = repo.read(id);
-        OrderItem orderItem = entity == null ? null : repo.delete(entity);
-        return orderItem == null ? null : new OrderItemResource(orderItem);
+        OrderItem orderItem = (entity == null) ? null : repo.delete(entity);
+        return (orderItem == null) ? null : new OrderItemResource(orderItem);
     }
 }
