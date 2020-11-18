@@ -10,8 +10,12 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/meal")
 public class MealController {
-    @Autowired
+    final
     MealRepo repo;
+
+    public MealController(@Autowired MealRepo repo) {
+        this.repo = repo;
+    }
 
     @PostMapping(value = "")
     MealResource post(@RequestBody MealResource mealResource) {

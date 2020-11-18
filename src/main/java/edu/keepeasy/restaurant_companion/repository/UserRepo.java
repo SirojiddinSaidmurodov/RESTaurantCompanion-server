@@ -18,10 +18,15 @@ public class UserRepo implements Repository<User> {
     private static final String selectByID = "SELECT id, name, login, password, userType FROM user where id = ?";
     private static final String deleteQuery = "DELETE FROM user where id = ?";
     private static final String updateQuery = "UPDATE user SET id = ?, name = ?, login = ?, password = ?, userType = ? where id = ?";
-    @Autowired
+    final
     JdbcOperations jdbcOperations;
-    @Autowired
+    final
     JdbcTemplate template;
+
+    public UserRepo(@Autowired JdbcOperations jdbcOperations, @Autowired JdbcTemplate template) {
+        this.jdbcOperations = jdbcOperations;
+        this.template = template;
+    }
 
     @Override
     public User create(User entity) {

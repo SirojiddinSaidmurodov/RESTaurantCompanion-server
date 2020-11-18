@@ -18,10 +18,15 @@ public class MealRepo implements Repository<Meal> {
     private static final String selectByIDQuery = "SELECT id, mealName, mealCost, mealAvailable from meal where id=?";
     private static final String updateQuery = "UPDATE meal SET mealName = ?, mealCost = ?, mealAvailable = ? where id = ?";
     private static final String deleteQuery = "DELETE FROM meal where id = ?";
-    @Autowired
+    final
     JdbcTemplate template;
-    @Autowired
+    final
     JdbcOperations jdbcOperations;
+
+    public MealRepo(@Autowired JdbcTemplate template, @Autowired JdbcOperations jdbcOperations) {
+        this.template = template;
+        this.jdbcOperations = jdbcOperations;
+    }
 
     @Override
     public Meal create(Meal entity) {
