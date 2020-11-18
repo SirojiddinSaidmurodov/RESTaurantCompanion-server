@@ -1,6 +1,6 @@
 package edu.keepeasy.restaurant_companion.domain;
 
-public class User extends Entity{
+public class User extends Entity {
     private String name;
     private String login;
     private String password;
