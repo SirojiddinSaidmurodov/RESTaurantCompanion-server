@@ -10,8 +10,12 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-    @Autowired
+    final
     OrderRepo repo;
+
+    public OrderController(@Autowired OrderRepo repo) {
+        this.repo = repo;
+    }
 
     @PostMapping(value = "")
     OrderResource post(@RequestBody OrderResource resource) {

@@ -20,10 +20,15 @@ public class OrderItemRepo {
     private static final String selectAllQuery = "SELECT id, mealID, orderID, quantity FROM orderItems where mealID = ?";
     private static final String updateQuery = "UPDATE orderItems SET id = ?, mealID = ?, orderID = ?, quantity = ? where id = ?";
     private static final String deleteQuery = "DELETE FROM orderItems where id = ?";
-    @Autowired
+    final
     JdbcOperations jdbcOperations;
-    @Autowired
+    final
     JdbcTemplate template;
+
+    public OrderItemRepo(@Autowired JdbcOperations jdbcOperations, @Autowired JdbcTemplate template) {
+        this.jdbcOperations = jdbcOperations;
+        this.template = template;
+    }
 
     public OrderItem create(OrderItem entity) {
         long id = Objects.requireNonNull(new SimpleJdbcInsert(template)

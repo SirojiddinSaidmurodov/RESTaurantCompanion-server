@@ -10,8 +10,12 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
+    final
     UserRepo repo;
+
+    public UserController(@Autowired UserRepo repo) {
+        this.repo = repo;
+    }
 
     @PostMapping(value = "")
     UserResource post(@RequestBody UserResource resource) {
