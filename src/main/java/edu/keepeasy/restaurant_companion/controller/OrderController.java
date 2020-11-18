@@ -1,5 +1,6 @@
 package edu.keepeasy.restaurant_companion.controller;
 
+import edu.keepeasy.restaurant_companion.domain.Order;
 import edu.keepeasy.restaurant_companion.repository.OrderRepo;
 import edu.keepeasy.restaurant_companion.resource.OrderResource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class OrderController {
 
     @PostMapping(value = "")
     OrderResource post(@RequestBody OrderResource resource) {
-        return new OrderResource(repo.create(resource.toEntity()));
+        Order order = repo.create(resource.toEntity());
+        return order == null ? null : new OrderResource(order);
     }
 
     @GetMapping(value = "")
@@ -32,16 +34,19 @@ public class OrderController {
 
     @GetMapping(value = "/{id}")
     OrderResource get(@PathVariable long id) {
-        return new OrderResource(repo.read(id));
+        Order order = repo.read(id);
+        return order == null ? null : new OrderResource(order);
     }
 
     @PutMapping(value = "/{id}")
     OrderResource put(@PathVariable long id, @RequestBody OrderResource resource) {
-        return new OrderResource(repo.update(id, resource.toEntity()));
+        Order order = repo.update(id, resource.toEntity());
+        return order == null ? null : new OrderResource(order);
     }
 
     @DeleteMapping(value = "/{id}")
     OrderResource delete(@PathVariable long id) {
-        return new OrderResource(repo.delete(repo.read(id)));
+        Order order = repo.delete(repo.read(id));
+        return order == null ? null : new OrderResource(order);
     }
 }

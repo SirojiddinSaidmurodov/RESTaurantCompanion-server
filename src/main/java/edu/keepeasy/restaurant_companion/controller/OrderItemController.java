@@ -1,5 +1,6 @@
 package edu.keepeasy.restaurant_companion.controller;
 
+import edu.keepeasy.restaurant_companion.domain.OrderItem;
 import edu.keepeasy.restaurant_companion.repository.OrderItemRepo;
 import edu.keepeasy.restaurant_companion.resource.OrderItemResource;
 import edu.keepeasy.restaurant_companion.resource.OrderResource;
@@ -20,7 +21,8 @@ public class OrderItemController {
 
     @PostMapping(value = "")
     OrderItemResource post(@RequestBody OrderItemResource resource) {
-        return new OrderItemResource(repo.create(resource.toEntity()));
+        OrderItem orderItem = repo.create(resource.toEntity());
+        return orderItem == null ? null : new OrderItemResource(orderItem);
     }
 
     @GetMapping(value = "")
@@ -33,16 +35,19 @@ public class OrderItemController {
 
     @GetMapping(value = "/{id}")
     OrderItemResource get(@PathVariable long id) {
-        return new OrderItemResource(repo.read(id));
+        OrderItem orderItem = repo.read(id);
+        return orderItem == null ? null : new OrderItemResource(orderItem);
     }
 
     @PutMapping(value = "/{id}")
     OrderItemResource put(@PathVariable long id, @RequestBody OrderItemResource resource) {
-        return new OrderItemResource(repo.update(id, resource.toEntity()));
+        OrderItem orderItem = repo.update(id, resource.toEntity());
+        return orderItem == null ? null : new OrderItemResource(orderItem);
     }
 
     @DeleteMapping(value = "/{id}")
     OrderItemResource delete(@PathVariable long id) {
-        return new OrderItemResource(repo.delete(repo.read(id)));
+        OrderItem orderItem = repo.delete(repo.read(id));
+        return orderItem == null ? null : new OrderItemResource(orderItem);
     }
 }
