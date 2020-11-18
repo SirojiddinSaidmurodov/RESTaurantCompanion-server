@@ -48,12 +48,10 @@ public class MealRepo implements Repository<Meal> {
     public Meal[] readAll() {
         ArrayList<Meal> values = new ArrayList<>();
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(selectQuery);
-        while (rowSet.next()) {
-            values.add(new Meal(
-                    rowSet.getLong("id"),
-                    rowSet.getString("mealName"),
-                    rowSet.getInt("mealCost"),
-                    rowSet.getBoolean("mealAvailable")));
+        Meal meal = getResult(rowSet);
+        while (meal != null) {
+            values.add(meal);
+            meal = getResult(rowSet);
         }
         return values.toArray(new Meal[0]);
     }
