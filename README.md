@@ -8,4 +8,6 @@
 
 ### RESTaurant Companion
 
+https://www.marcobehler.com/guides/spring-framework
+
 ## 3. Client web-application
