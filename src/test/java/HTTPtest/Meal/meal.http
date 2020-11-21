@@ -1,0 +1,48 @@
+GET http://localhost:8080/smt
+Accept: application/json
+
+> {%
+ client.test('Getting 404',function() {
+  client.assert(response.status===404)
+})
+ %}
+
+###
+
+GET http://localhost:8080/meal/
+Accept: application/json
+
+> {%
+client.test('Getting JSON response',function() {
+  client.assert(response.contentType.mimeType==="application/json","Response is not a json")
+  client.log("Response type was: "+response.contentType.mimeType)
+})
+
+client.test('Getting empty list',function() {
+  client.assert(response.body.length===0)
+  client.log("Test passed")
+  client.log("Response body: " + response.body.toString())
+})
+%}
+
+###
+POST /meal/ HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 0,
+  "mealName": "fdxcfgvhb",
+  "mealCost": 654,
+  "mealAvailable": false
+}
+
+> {%
+client.test('Getting result object',function() {
+  client.assert(response.contentType.mimeType==="application/json","Response is not a json")
+  client.assert(response.body.hasOwnProperty("id"))
+  client.log("Test passed")
+  client.log("Response body: ")
+})
+%}
