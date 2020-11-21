@@ -9,6 +9,10 @@ public class UserResource extends Resource {
     private String password;
     private int userType;
 
+    public UserResource() {
+
+    }
+
     public UserResource(User user) {
         this.id = user.getId();
         this.name = user.getName();

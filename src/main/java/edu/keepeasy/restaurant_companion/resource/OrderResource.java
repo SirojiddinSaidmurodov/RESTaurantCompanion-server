@@ -8,6 +8,9 @@ public class OrderResource extends Resource {
     private int tableID;
     private boolean ready;
 
+    public OrderResource() {
+    }
+
     public OrderResource(Order order) {
         this.id = order.getId();
         this.waiterID = order.getWaiterID();

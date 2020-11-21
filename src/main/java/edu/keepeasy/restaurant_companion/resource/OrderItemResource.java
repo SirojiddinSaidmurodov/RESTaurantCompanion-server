@@ -8,6 +8,10 @@ public class OrderItemResource extends Resource {
     private long orderID;
     private int quantity;
 
+    public OrderItemResource() {
+
+    }
+
     public OrderItemResource(OrderItem orderItem) {
         this.id = orderItem.getId();
         this.mealID = orderItem.getMealID();
