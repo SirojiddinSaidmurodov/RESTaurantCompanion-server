@@ -86,7 +86,6 @@ public class OrderItemRepo {
         if (rows == 0) {
             return null;
         } else {
-            entity.setId(id);
             return entity;
         }
     }

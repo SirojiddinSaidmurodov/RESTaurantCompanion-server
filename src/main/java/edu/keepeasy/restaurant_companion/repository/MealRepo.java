@@ -83,7 +83,6 @@ public class MealRepo implements Repository<Meal> {
         if (updateRows == 0) {
             return null;
         } else {
-            entity.setId(id);
             return entity;
         }
     }

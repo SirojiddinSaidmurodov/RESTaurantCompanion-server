@@ -83,7 +83,6 @@ public class OrderRepo implements Repository<Order> {
         if (rows == 0) {
             return null;
         } else {
-            entity.setId(id);
             return entity;
         }
     }

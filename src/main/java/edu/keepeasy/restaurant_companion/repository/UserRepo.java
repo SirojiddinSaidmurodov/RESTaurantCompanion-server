@@ -89,7 +89,6 @@ public class UserRepo implements Repository<User> {
         if (rows == 0) {
             return null;
         } else {
-            entity.setId(id);
             return entity;
         }
     }
