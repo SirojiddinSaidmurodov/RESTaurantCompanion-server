@@ -7,14 +7,14 @@ CREATE TABLE IF NOT EXISTS `user`
     `name`     CHAR(40),
     `login`    CHAR(40),
     `password` CHAR(255),
-    `userType` ENUM ('ADMIN', 'COOK', 'WAITER')
+    `userType` INTEGER DEFAULT 0 NOT NULL
 ) comment = 'Basic user entity';
 CREATE TABLE IF NOT EXISTS `orders`
 (
-    `id`          SERIAL,
-    `waiterID`    BIGINT UNSIGNED NOT NULL,
-    `tableID`     INT,
-    `ready` BOOLEAN,
+    `id`       SERIAL,
+    `waiterID` BIGINT UNSIGNED NOT NULL,
+    `tableID`  INT,
+    `ready`    BOOLEAN,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`waiterID`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
