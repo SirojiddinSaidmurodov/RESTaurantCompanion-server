@@ -65,7 +65,7 @@ public class OrderRepo implements Repository<Order> {
     @Override
     public Order update(long id, Order entity) {
         Object[] args = new Object[]{
-                id,
+                entity.getId(),
                 entity.getWaiterID(),
                 entity.getTableID(),
                 entity.isReady(),
