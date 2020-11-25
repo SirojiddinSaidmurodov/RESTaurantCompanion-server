@@ -17,7 +17,8 @@ import java.util.Objects;
 @Repository
 public class OrderItemRepo {
     private static final String selectByIDQuery = "SELECT id, mealID, orderID, quantity FROM orderItems where id = ?";
-    private static final String selectAllQuery = "SELECT id, mealID, orderID, quantity FROM orderItems where mealID = ?";
+    private static final String selectAllQuery = "SELECT id, mealID, orderID, quantity FROM orderItems";
+    private static final String selectByOrderIDQuery = "SELECT id, mealID, orderID, quantity FROM orderItems WHERE orderID=?";
     private static final String updateQuery = "UPDATE orderItems SET id = ?, mealID = ?, orderID = ?, quantity = ? where id = ?";
     private static final String deleteQuery = "DELETE FROM orderItems where id = ?";
     final
@@ -44,12 +45,10 @@ public class OrderItemRepo {
         return entity;
     }
 
-    public OrderItem[] readAll(Order order) {
+    public OrderItem[] readAll() {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(
-                selectAllQuery,
-                new Object[]{order.getId()},
-                new int[]{Types.BIGINT});
+                selectAllQuery);
         OrderItem orderItem = getResult(rowSet);
         while (orderItem != null) {
             orderItems.add(orderItem);
@@ -63,7 +62,20 @@ public class OrderItemRepo {
                 selectByIDQuery,
                 new Object[]{id},
                 new int[]{Types.BIGINT}));
+    }
 
+    public OrderItem[] readByOrderID(long orderID){
+        ArrayList<OrderItem> orderItems = new ArrayList<>();
+        SqlRowSet rowSet = jdbcOperations.queryForRowSet(
+                selectByOrderIDQuery,
+                new Object[]{orderID},
+                new int[]{Types.BIGINT});
+        OrderItem orderItem = getResult(rowSet);
+        while (orderItem != null) {
+            orderItems.add(orderItem);
+            orderItem = getResult(rowSet);
+        }
+        return orderItems.toArray(new OrderItem[0]);
     }
 
     public OrderItem update(long id, OrderItem entity) {

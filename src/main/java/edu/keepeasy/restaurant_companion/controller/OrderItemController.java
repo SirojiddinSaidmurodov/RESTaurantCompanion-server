@@ -3,7 +3,6 @@ package edu.keepeasy.restaurant_companion.controller;
 import edu.keepeasy.restaurant_companion.domain.OrderItem;
 import edu.keepeasy.restaurant_companion.repository.OrderItemRepo;
 import edu.keepeasy.restaurant_companion.resource.OrderItemResource;
-import edu.keepeasy.restaurant_companion.resource.OrderResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +25,11 @@ public class OrderItemController {
     }
 
     @GetMapping(value = "")
-    OrderItemResource[] getAll(@RequestBody OrderResource resource) {
-        return Arrays.stream(repo.readAll(resource.toEntity()))
+    OrderItemResource[] getAll(@RequestParam(required = false) Long orderID) {
+        OrderItem[] orderItems = (orderID == null) ?
+                repo.readAll() :
+                repo.readByOrderID(orderID);
+        return Arrays.stream(orderItems)
                 .map(OrderItemResource::new)
                 .toArray(OrderItemResource[]::new);
     }
