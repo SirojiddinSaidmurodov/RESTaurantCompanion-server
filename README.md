@@ -26,3 +26,5 @@ https://www.marcobehler.com/guides/spring-framework
 ## Client web-application
 
 ## Developing yourself
+❗ For running RESTful server you need any SQL server running on your machine (or sql-server on a container if you're running Docker)
+### Database
