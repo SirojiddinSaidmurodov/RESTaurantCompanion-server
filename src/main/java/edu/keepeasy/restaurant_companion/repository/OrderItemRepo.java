@@ -19,7 +19,7 @@ public class OrderItemRepo {
     private static final String selectByIDQuery = "SELECT id, mealID, orderID, quantity FROM orderItems where id = ?";
     private static final String selectAllQuery = "SELECT id, mealID, orderID, quantity FROM orderItems";
     private static final String selectByOrderIDQuery = "SELECT id, mealID, orderID, quantity FROM orderItems WHERE orderID=?";
-    private static final String updateQuery = "UPDATE orderItems SET id = ?, mealID = ?, orderID = ?, quantity = ? where id = ?";
+    private static final String updateQuery = "UPDATE orderItems SET mealID = ?, orderID = ?, quantity = ? where id = ?";
     private static final String deleteQuery = "DELETE FROM orderItems where id = ?";
     final
     JdbcOperations jdbcOperations;
@@ -80,13 +80,11 @@ public class OrderItemRepo {
 
     public OrderItem update(long id, OrderItem entity) {
         Object[] args = new Object[]{
-                entity.getId(),
                 entity.getMealID(),
                 entity.getOrderID(),
                 entity.getQuantity(),
                 id};
         int[] argTypes = new int[]{
-                Types.BIGINT,
                 Types.BIGINT,
                 Types.BIGINT,
                 Types.INTEGER,

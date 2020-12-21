@@ -17,7 +17,7 @@ public class UserRepo implements Repository<User> {
     private static final String selectAllQuery = "SELECT id, name, login, password, userType FROM user";
     private static final String selectByID = "SELECT id, name, login, password, userType FROM user where id = ?";
     private static final String deleteQuery = "DELETE FROM user where id = ?";
-    private static final String updateQuery = "UPDATE user SET id = ?, name = ?, login = ?, password = ?, userType = ? where id = ?";
+    private static final String updateQuery = "UPDATE user SET name = ?, login = ?, password = ?, userType = ? where id = ?";
     final
     JdbcOperations jdbcOperations;
     final
@@ -69,14 +69,12 @@ public class UserRepo implements Repository<User> {
     @Override
     public User update(long id, User entity) {
         Object[] args = new Object[]{
-                entity.getId(),
                 entity.getName(),
                 entity.getLogin(),
                 entity.getPassword(),
                 entity.getUserType().getValue(),
                 id};
         int[] argTypes = new int[]{
-                Types.BIGINT,
                 Types.CHAR,
                 Types.CHAR,
                 Types.CHAR,

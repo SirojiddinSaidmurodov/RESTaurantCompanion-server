@@ -16,7 +16,7 @@ import java.util.Objects;
 public class MealRepo implements Repository<Meal> {
     private static final String selectQuery = "SELECT id, mealName, mealCost, mealAvailable from meal";
     private static final String selectByIDQuery = "SELECT id, mealName, mealCost, mealAvailable from meal where id=?";
-    private static final String updateQuery = "UPDATE meal SET id = ?, mealName = ?, mealCost = ?, mealAvailable = ? where id = ?";
+    private static final String updateQuery = "UPDATE meal SET mealName = ?, mealCost = ?, mealAvailable = ? where id = ?";
     private static final String deleteQuery = "DELETE FROM meal where id = ?";
     final
     JdbcTemplate template;
@@ -69,13 +69,11 @@ public class MealRepo implements Repository<Meal> {
     @Override
     public Meal update(long id, Meal entity) {
         Object[] args = new Object[]{
-                entity.getId(),
                 entity.getMealName(),
                 entity.getMealCost(),
                 entity.isMealAvailable(),
                 id};
         int[] argTypes = new int[]{
-                Types.BIGINT,
                 Types.CHAR,
                 Types.INTEGER,
                 Types.BOOLEAN,

@@ -16,7 +16,7 @@ import java.util.Objects;
 public class OrderRepo implements Repository<Order> {
     private static final String selectAllQuery = "SELECT id, waiterID, tableID, ready FROM orders";
     private static final String selectByIDQuery = "SELECT id, waiterID, tableID, ready FROM orders where id=?";
-    private static final String updateQuery = "UPDATE orders SET id=?, waiterID=?, tableID=?, ready=? where id=?";
+    private static final String updateQuery = "UPDATE orders SET waiterID=?, tableID=?, ready=? where id=?";
     private static final String deleteQuery = "DELETE FROM orders where id=?";
     private final JdbcOperations jdbcOperations;
     private final JdbcTemplate template;
@@ -65,13 +65,11 @@ public class OrderRepo implements Repository<Order> {
     @Override
     public Order update(long id, Order entity) {
         Object[] args = new Object[]{
-                entity.getId(),
                 entity.getWaiterID(),
                 entity.getTableID(),
                 entity.isReady(),
                 id};
         int[] argTypes = new int[]{
-                Types.BIGINT,
                 Types.BIGINT,
                 Types.INTEGER,
                 Types.BOOLEAN,
