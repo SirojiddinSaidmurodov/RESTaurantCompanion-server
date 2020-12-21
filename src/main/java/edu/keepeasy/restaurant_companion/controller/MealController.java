@@ -4,6 +4,8 @@ import edu.keepeasy.restaurant_companion.domain.Meal;
 import edu.keepeasy.restaurant_companion.repository.MealRepo;
 import edu.keepeasy.restaurant_companion.resource.MealResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -32,22 +34,28 @@ public class MealController {
     }
 
     @GetMapping(value = "/{id}")
-    MealResource get(@PathVariable long id) {
+    ResponseEntity<MealResource> get(@PathVariable long id) {
         Meal meal = repo.read(id);
-        return (meal == null) ? null : new MealResource(meal);
+        return (meal == null) ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) :
+                new ResponseEntity<>(new MealResource(meal), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
-    MealResource put(@PathVariable long id, @RequestBody MealResource mealResource) {
+    ResponseEntity<MealResource> put(@PathVariable long id, @RequestBody MealResource mealResource) {
         Meal meal = repo.update(id, mealResource.toEntity());
-        return (meal == null) ? null : new MealResource(meal);
+        return (meal == null) ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) :
+                new ResponseEntity<>(new MealResource(meal), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
-    MealResource delete(@PathVariable long id) {
+    ResponseEntity<MealResource> delete(@PathVariable long id) {
         Meal entity = repo.read(id);
         Meal meal = (entity == null) ? null : repo.delete(entity);
-        return (meal == null) ? null : new MealResource(meal);
+        return (meal == null) ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) :
+                new ResponseEntity<>(new MealResource(meal), HttpStatus.OK);
     }
 
 
