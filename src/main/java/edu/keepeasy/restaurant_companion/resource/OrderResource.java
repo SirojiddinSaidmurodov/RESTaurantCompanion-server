@@ -1,5 +1,6 @@
 package edu.keepeasy.restaurant_companion.resource;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import edu.keepeasy.restaurant_companion.domain.Order;
 
 public class OrderResource extends Resource {
@@ -7,6 +8,9 @@ public class OrderResource extends Resource {
     private long waiterID;
     private int tableID;
     private boolean ready;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private OrderItemResource[] items;
 
     public OrderResource() {
     }
@@ -56,5 +60,13 @@ public class OrderResource extends Resource {
                 waiterID,
                 tableID,
                 ready);
+    }
+
+    public OrderItemResource[] getItems() {
+        return items;
+    }
+
+    public void setItems(OrderItemResource[] items) {
+        this.items = items;
     }
 }
