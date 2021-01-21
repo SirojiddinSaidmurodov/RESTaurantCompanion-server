@@ -10,8 +10,8 @@
 - [Developing yourself](#developing-yourself)
 ## Building database
 
-><img src="img/Restaurant.png" alt="scheme">
->This is the ER-diagram of database
+><img src="img/er.png" alt="scheme">
+>The ER-diagram of database
 
 You can find SQL-script used for building the database [here](src/main/resources/schema.sql).
 
