@@ -1,7 +1,13 @@
-# Software-Construction course
+# RESTaurant Companion (server)
+
+This application build according the software constructing course in 2020 autumn. The main goals of making this server
+to get know how to build REST-ful API and how to use rules of REST for making web applications. I made the server for
+application called RESTaurant companion, which can be used for administrating the orders in cafes, restaurants or
+somewhere like that.
 
 ## Content
 
+- [Introduction](#restaurant-companion-server)
 - [Content](#content)
 - [Building database](#building-database)
 - [RESTful web-server](#restful-web-server)
@@ -53,7 +59,27 @@ You can find SQL-script used for building the database [here](src/main/resources
 
 ## Client web-application
 
+You can find client web application [here](https://github.com/SirojiddinSaidmurodov/RESTaurantCompanion-client)
+
 ## Developing yourself
 
 ❗ For running RESTful server you need any SQL server running on your machine (or sql-server on a container if you're
 running Docker)
+
+### Running
+
+1. Install MySQL or any other SQL-server. Run the [schema.sql](src/main/resources/schema.sql) and create
+   user `rest_comp` with the password `password`.
+
+2. Make sure that you have [JRE](https://www.java.com/ru/download/manual.jsp).
+
+3. Download the latest JAR package
+   from [releases](https://github.com/SirojiddinSaidmurodov/RESTaurantCompanion-server/releases) and run.
+
+### Development
+
+You will need the JDK 14.
+
+1. Clone the repository.
+   
+2. Open in IntelliJ IDEA.
