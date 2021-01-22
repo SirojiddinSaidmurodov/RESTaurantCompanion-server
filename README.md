@@ -74,7 +74,10 @@ running Docker)
 2. Make sure that you have [JRE](https://www.java.com/ru/download/manual.jsp).
 
 3. Download the latest JAR package
-   from [releases](https://github.com/SirojiddinSaidmurodov/RESTaurantCompanion-server/releases) and run.
+   from [releases](https://github.com/SirojiddinSaidmurodov/RESTaurantCompanion-server/releases) and run:
+   ```shell
+    java -jar "RESTaurant companion.jar"
+    ```
 
 ### Development
 
