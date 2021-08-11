@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `user`
 ❗For running Java code you will need to create user (my database is called `restaurant`):
 
 ```mysql
-GRANT ALL ON restaurant.* TO 'rest_comp'@'localhost' IDENTIFIED WITH sha256_password BY 'password';
+CREATE USER 'rest_comp'@'localhost' IDENTIFIED WITH sha256_password BY 'password';
+GRANT ALL ON restaurant.* TO 'rest_comp'@'localhost';
 ```
 
 You can find SQL-script used for building the database [here](src/main/resources/schema.sql).
